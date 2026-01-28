@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ليزي رمضان</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- الشعار -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🌙</div>
+                <h1 class="logo-text">ليزي رمضان</h1>
+            </div>
+            <div class="header-controls">
+                <button id="themeToggle" class="icon-btn" aria-label="تغيير الوضع">🌙</button>
+                <button id="menuToggle" class="icon-btn" aria-label="فتح القائمة">☰</button>
+            </div>
+        </header>
+
+        <!-- القائمة الجانبية -->
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h2>القائمة الرئيسية</h2>
+                <button id="closeMenu" class="icon-btn" aria-label="إغلاق القائمة">✕</button>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#" data-page="dashboard" class="nav-link active">🏠 الرئيسية</a></li>
+                <li><a href="#" data-page="prayer" class="nav-link">🕌 مواقيت الصلاة</a></li>
+                <li><a href="#" data-page="quran" class="nav-link">📖 القرآن الكريم</a></li>
+                <li><a href="#" data-page="tasbih" class="nav-link">📿 المسبحة</a></li>
+                <li><a href="#" data-page="qibla" class="nav-link">🧭 اتجاه القبلة</a></li>
+                <li><a href="#" data-page="hadith" class="nav-link">📜 الأحاديث</a></li>
+                <li><a href="#" data-page="recipes" class="nav-link">🍽️ الوصفات</a></li>
+                <li><a href="#" data-page="imsakia" class="nav-link">📅 الإمساكية</a></li>
+                <li><a href="#" data-page="duas" class="nav-link">🤲 الأدعية</a></li>
+                <li><a href="#" data-page="settings" class="nav-link">⚙️ الإعدادات</a></li>
+            </ul>
+        </nav>
+
+        <!-- محتوى الصفحات -->
+        <main class="main-content">
+            <!-- الصفحة الرئيسية -->
+            <section id="dashboard" class="page active">
+                <div class="dashboard-grid">
+                    <div class="card prayer-card">
+                        <h3>الصلاة القادمة</h3>
+                        <div class="prayer-info">
+                            <span id="nextPrayerName">الظهر</span>
+                            <span id="nextPrayerTime">12:00</span>
+                        </div>
+                        <div class="countdown" id="prayerCountdown">00:00:00</div>
+                    </div>
+                    
+                    <div class="card imsakia-card">
+                        <h3>إمساكية اليوم</h3>
+                        <div class="imsakia-info">
+                            <div class="time-row">
+                                <span>السحور</span>
+                                <span id="suhoorTime">04:21</span>
+                            </div>
+                            <div class="time-row">
+                                <span>الفجر</span>
+                                <span id="fajrTime">05:21</span>
+                            </div>
+                            <div class="time-row">
+                                <span>الإفطار</span>
+                                <span id="iftarTime">17:53</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card hijri-card">
+                        <h3>التاريخ الهجري</h3>
+                        <div class="hijri-date" id="hijriDate">1 رمضان 1447</div>
+                        <div class="gregorian-date" id="gregorianDate">18 فبراير 2026</div>
+                    </div>
+                    
+                    <div class="card ramadan-card">
+                        <h3>رمضان</h3>
+                        <div class="ramadan-info">
+                            <div class="ramadan-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="ramadanProgress" style="width: 0%"></div>
+                                </div>
+                                <span id="ramadanDays">اليوم 1 من 30</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card verse-card">
+                        <h3>آية اليوم</h3>
+                        <div class="verse-text" id="dailyVerse">يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ</div>
+                        <div class="verse-ref">البقرة: 183</div>
+                    </div>
+                    
+                    <div class="card hadith-card">
+                        <h3>حديث اليوم</h3>
+                        <div class="hadith-text" id="dailyHadith">قال رسول الله صلى الله عليه وسلم: من صام رمضان إيماناً واحتساباً غفر له ما تقدم من ذنبه</div>
+                        <div class="hadith-ref">رواه البخاري ومسلم</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- مواقيت الصلاة -->
+            <section id="prayer" class="page">
+                <div class="page-header">
+                    <h2>🕌 مواقيت الصلاة</h2>
+                    <div class="location-info">
+                        <span id="currentLocation">جاري تحديد الموقع...</span>
+                        <button id="refreshPrayerTimes" class="btn small">🔄 تحديث</button>
+                    </div>
+                </div>
+                <div class="prayer-times-grid" id="prayerTimesContainer"></div>
+                <div class="prayer-settings">
+                    <h3>إعدادات الأذان</h3>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label>تذكير قبل الأذان</label>
+                            <select id="prayerReminderTime" class="select">
+                                <option value="5">5 دقائق</option>
+                                <option value="10">10 دقائق</option>
+                                <option value="15">15 دقائق</option>
+                                <option value="30">30 دقائق</option>
+                                <option value="60">60 دقيقة</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>صوت المؤذن</label>
+                            <select id="athanVoice" class="select">
+                                <option value="0">المؤذن الأول</option>
+                                <option value="1">المؤذن الثاني</option>
+                                <option value="2">المؤذن الثالث</option>
+                                <option value="3">المؤذن الرابع</option>
+                                <option value="4">المؤذن الخامس</option>
+                            </select>
+                        </div>
+                        <button id="testAthan" class="btn">تجربة الأذان</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- القرآن الكريم -->
+            <section id="quran" class="page">
+                <div class="page-header">
+                    <h2>📖 القرآن الكريم</h2>
+                    <div class="quran-controls">
+                        <input type="text" id="quranSearch" placeholder="بحث في القرآن..." class="search-input">
+                        <select id="quranReader" class="select">
+                            <option value="0">القارئ الأول</option>
+                            <option value="1">القارئ الثاني</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="surahs-grid" id="surahsContainer"></div>
+                <div class="player-container" id="quranPlayer">
+                    <audio id="quranAudio" controls></audio>
+                </div>
+            </section>
+
+            <!-- المسبحة -->
+            <section id="tasbih" class="page">
+                <div class="tasbih-container">
+                    <div class="tasbih-display">
+                        <div class="tasbih-count" id="tasbihCount">0</div>
+                        <div class="tasbih-target">الهدف: <span id="tasbihTarget">33</span></div>
+                    </div>
+                    <div class="tasbih-beads" id="tasbihBeads"></div>
+                    <div class="tasbih-controls">
+                        <button id="resetTasbih" class="btn">🔄 إعادة</button>
+                        <button id="changeDhikr" class="btn">📿 تغيير الذكر</button>
+                        <button id="setTarget" class="btn">🎯 تعيين هدف</button>
+                    </div>
+                    <div class="dhikr-list" id="dhikrList"></div>
+                </div>
+            </section>
+
+            <!-- اتجاه القبلة -->
+            <section id="qibla" class="page">
+                <div class="qibla-container">
+                    <div class="compass">
+                        <div class="compass-face">
+                            <div class="compass-needle" id="compassNeedle"></div>
+                            <div class="compass-north">N</div>
+                            <div class="compass-east">E</div>
+                            <div class="compass-south">S</div>
+                            <div class="compass-west">W</div>
+                        </div>
+                    </div>
+                    <div class="qibla-info">
+                        <div class="qibla-direction">
+                            <span>اتجاه القبلة:</span>
+                            <span id="qiblaAngle">0°</span>
+                        </div>
+                        <div class="qibla-distance">
+                            <span>المسافة إلى مكة:</span>
+                            <span id="qiblaDistance">... كم</span>
+                        </div>
+                    </div>
+                    <button id="calibrateCompass" class="btn">🧭 معايرة البوصلة</button>
+                </div>
+            </section>
+
+            <!-- الأحاديث -->
+            <section id="hadith" class="page">
+                <div class="page-header">
+                    <h2>📜 الأحاديث النبوية</h2>
+                    <input type="text" id="hadithSearch" placeholder="بحث في الأحاديث..." class="search-input">
+                </div>
+                <div class="hadiths-container" id="hadithsContainer"></div>
+            </section>
+
+            <!-- الوصفات -->
+            <section id="recipes" class="page">
+                <div class="page-header">
+                    <h2>🍽️ الوصفات الرمضانية</h2>
+                    <select id="recipeCategory" class="select">
+                        <option value="all">جميع الوصفات</option>
+                        <option value="soups">الشوربات</option>
+                        <option value="appetizers">المقبلات</option>
+                        <option value="main">الأطباق الرئيسية</option>
+                        <option value="salads">السلطات</option>
+                        <option value="desserts">الحلويات</option>
+                        <option value="drinks">المشروبات</option>
+                    </select>
+                </div>
+                <div class="recipes-grid" id="recipesContainer"></div>
+            </section>
+
+            <!-- الإمساكية -->
+            <section id="imsakia" class="page">
+                <div class="page-header">
+                    <h2>📅 إمساكية رمضان 2026</h2>
+                    <div class="month-nav">
+                        <button id="prevMonth" class="icon-btn">◀</button>
+                        <span id="currentMonth">رمضان 1447</span>
+                        <button id="nextMonth" class="icon-btn">▶</button>
+                    </div>
+                </div>
+                <div class="imsakia-table-container">
+                    <table class="imsakia-table" id="imsakiaTable">
+                        <thead>
+                            <tr>
+                                <th>اليوم</th>
+                                <th>التاريخ</th>
+                                <th>السحور</th>
+                                <th>الفجر</th>
+                                <th>الإفطار</th>
+                            </tr>
+                        </thead>
+                        <tbody id="imsakiaBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- الأدعية -->
+            <section id="duas" class="page">
+                <div class="page-header">
+                    <h2>🤲 الأدعية والأذكار</h2>
+                    <select id="duaCategory" class="select">
+                        <option value="all">جميع الأدعية</option>
+                        <option value="morning">أذكار الصباح</option>
+                        <option value="evening">أذكار المساء</option>
+                        <option value="prayer">أذكار بعد الصلاة</option>
+                        <option value="ramadan">أدعية رمضانية</option>
+                        <option value="sleep">أدعية النوم</option>
+                    </select>
+                </div>
+                <div class="duas-container" id="duasContainer"></div>
+            </section>
+
+            <!-- الإعدادات -->
+            <section id="settings" class="page">
+                <div class="page-header">
+                    <h2>⚙️ إعدادات التطبيق</h2>
+                </div>
+                <div class="settings-container">
+                    <div class="setting-group">
+                        <h3>التقويم</h3>
+                        <div class="setting-item">
+                            <label>نوع التقويم</label>
+                            <select id="calendarType" class="select">
+                                <option value="hijri">هجري</option>
+                                <option value="gregorian">ميلادي</option>
+                                <option value="both">كلاهما</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>الإشعارات</h3>
+                        <div class="setting-item">
+                            <label>تفعيل إشعارات الصلاة</label>
+                            <input type="checkbox" id="prayerNotifications" checked>
+                        </div>
+                        <div class="setting-item">
+                            <label>تفعيل إشعارات الإمساكية</label>
+                            <input type="checkbox" id="imsakiaNotifications" checked>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>المظهر</h3>
+                        <div class="setting-item">
+                            <label>الوضع الليلي</label>
+                            <input type="checkbox" id="darkMode">
+                        </div>
+                        <div class="setting-item">
+                            <label>حجم الخط</label>
+                            <select id="fontSize" class="select">
+                                <option value="small">صغير</option>
+                                <option value="medium" selected>متوسط</option>
+                                <option value="large">كبير</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>التخزين</h3>
+                        <button id="clearCache" class="btn">🗑️ مسح التخزين</button>
+                        <button id="exportData" class="btn">💾 نسخ احتياطي</button>
+                        <button id="importData" class="btn">📥 استعادة</button>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>حول التطبيق</h3>
+                        <div class="about-info">
+                            <p>تطبيق "ليزي رمضان" - رفيقك في الشهر الكريم</p>
+                            <p>الإصدار: 1.0.0</p>
+                            <button id="installApp" class="btn">📲 تثبيت التطبيق</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- مشغل الفيديو للأذان -->
+        <div id="videoPlayer" class="video-player hidden">
+            <video id="athanVideo" controls autoplay></video>
+            <button id="closeVideo" class="close-video">✕</button>
+        </div>
+
+        <!-- تنبيهات -->
+        <div id="notificationContainer" class="notification-container"></div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+</body>
+</html>
